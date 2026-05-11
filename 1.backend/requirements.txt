@@ -1,6 +1,11 @@
 fastapi
 uvicorn
 pandas
+openpyxl
+python-multipart
 sqlalchemy
 psycopg2-binary
-openai
+alembic
+python-jose[cryptography]
+passlib[bcrypt]
+# openai # возможно удалить, т.к. используется openpyxl ?!

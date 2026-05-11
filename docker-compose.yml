@@ -1,21 +1,48 @@
-version: "3.9"
-
 services:
 
   backend:
-    build: ./1.backend
+    build:
+      context: ./1.backend
+
+    container_name: finance_backend
 
     ports:
       - "8010:8000"
 
+    volumes:
+      - ./1.backend:/app
+
+    env_file:
+      - .env
+
     depends_on:
       - db
 
-    environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/finance
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+  frontend:
+    build:
+      context: ./2.frontend
+
+    container_name: finance_frontend
+
+    ports:
+      - "5174:5173"
+
+    volumes:
+      - ./2.frontend:/app
+
+    depends_on:
+      - backend
+
+    command: npm run dev -- --host 0.0.0.0
 
   db:
     image: postgres:15
+
+    container_name: finance_db
+
+    restart: always
 
     environment:
       POSTGRES_USER: user
@@ -24,3 +51,9 @@ services:
 
     ports:
       - "5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
