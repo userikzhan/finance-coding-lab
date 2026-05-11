@@ -16,9 +16,10 @@ AI-powered financial coding lab for automating Excel workflows, reconciliation, 
 
 ## 📁 Project Structure
 
-app/ \# Core backend logic\
-data/ \# Input/output files\
-notebooks/ \# Experiments and analysis
+learning/ → Input/output files + Experiments and analysis
+backend/ → API + AI
+frontend/ → UI
+docker/ → infrastructure
 
 ------------------------------------------------------------------------
 
