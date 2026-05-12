@@ -3,6 +3,9 @@ import pandas as pd
 
 from app.logger import logger
 
+from app.metrics import increment_uploads
+increment_uploads()
+
 router = APIRouter()
 
 
