@@ -7,6 +7,7 @@ from alembic import context
 
 from app.db.base import Base
 
+# IMPORT MODELS
 from app.models.user import User
 from app.models.billing import Billing
 from app.models.reconciliation import Reconciliation
@@ -50,5 +51,4 @@ def run_migrations_online():
             context.run_migrations()
 
 
-run_migrations_offline()
 run_migrations_online()
