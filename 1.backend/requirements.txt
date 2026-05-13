@@ -22,3 +22,5 @@ redis
 httpx
 
 python-dotenv
+
+pydantic-settings
