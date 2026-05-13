@@ -26,6 +26,8 @@ services:
 
     container_name: finance_frontend
 
+    working_dir: /app
+    
     ports:
       - "5174:5173"
 
