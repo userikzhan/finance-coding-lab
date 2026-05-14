@@ -5,6 +5,12 @@ from sqlalchemy import pool
 
 from alembic import context
 
+import sys
+from pathlib import Path
+
+# Добавляем backend root в PYTHONPATH
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 from app.db.base import Base
 
 # IMPORT MODELS
