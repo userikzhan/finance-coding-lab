@@ -7,26 +7,61 @@ from alembic import context
 
 import sys
 from pathlib import Path
+import os
 
+from dotenv import load_dotenv
+
+# =========================================================
 # Добавляем backend root в PYTHONPATH
+# =========================================================
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
+# =========================================================
+# Загружаем .env
+# =========================================================
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+# =========================================================
+# Alembic config object
+# =========================================================
+config = context.config
+
+# =========================================================
+# Подставляем DATABASE_URL из .env
+# =========================================================
+config.set_main_option("sqlalchemy.url", DATABASE_URL)
+
+# =========================================================
+# Настройка логирования
+# =========================================================
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
+
+# =========================================================
+# Импорт Base
+# =========================================================
 from app.db.base import Base
 
-# IMPORT MODELS
+# =========================================================
+# Импорт моделей
+# =========================================================
 from app.models.user import User
 from app.models.billing import Billing
 from app.models.reconciliation import Reconciliation
 
-config = context.config
-
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
-
+# =========================================================
+# Metadata SQLAlchemy
+# =========================================================
 target_metadata = Base.metadata
 
 
+# =========================================================
+# Offline migrations
+# =========================================================
 def run_migrations_offline():
+
     url = config.get_main_option("sqlalchemy.url")
 
     context.configure(
@@ -40,7 +75,11 @@ def run_migrations_offline():
         context.run_migrations()
 
 
+# =========================================================
+# Online migrations
+# =========================================================
 def run_migrations_online():
+
     connectable = engine_from_config(
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
@@ -48,6 +87,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
+
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
@@ -57,4 +97,10 @@ def run_migrations_online():
             context.run_migrations()
 
 
-run_migrations_online()
+# =========================================================
+# Entry point
+# =========================================================
+if context.is_offline_mode():
+    run_migrations_offline()
+else:
+    run_migrations_online()
