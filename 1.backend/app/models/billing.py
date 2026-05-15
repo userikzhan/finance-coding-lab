@@ -1,7 +1,4 @@
-from sqlalchemy import Column
-from sqlalchemy import Integer
-from sqlalchemy import Float
-from sqlalchemy import String
+from sqlalchemy import Column, Integer, Numeric, String
 
 from app.db.base import Base
 
@@ -12,6 +9,6 @@ class Billing(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    amount = Column(Float)
+    amount = Column(Numeric(10, 2))
 
     description = Column(String)
