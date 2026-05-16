@@ -11,4 +11,4 @@ class Reconciliation(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    file_name = Column(String)
+    file_name = Column(String, nullable=False)
