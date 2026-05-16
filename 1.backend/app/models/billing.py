@@ -9,6 +9,6 @@ class Billing(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    amount = Column(Numeric(10, 2))
+    amount = Column(Numeric(10, 2), nullable=False)
 
     description = Column(String)
