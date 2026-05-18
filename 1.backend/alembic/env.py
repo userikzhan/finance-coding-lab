@@ -47,9 +47,7 @@ from app.db.base import Base
 # =========================================================
 # Импорт моделей
 # =========================================================
-from app.models.user import User
-from app.models.billing import Billing
-from app.models.reconciliation import Reconciliation
+from app.models import *
 
 # =========================================================
 # Metadata SQLAlchemy
