@@ -30,3 +30,7 @@ coverage/
 Thumbs.db
 
 postgres_data/
+
+uploads/
+reports/
+logs/
